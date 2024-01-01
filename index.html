@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<style>
+div.relative {
+  position: relative;
+  width: 400px;
+  height: 200px;
+  border: 3px solid #73AD21;
+} 
+
+div.absolute1 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200px;
+  height: 100px;
+  border: 3px solid #73AD21;
+}
+div.absolute2 {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 200px;
+  height: 100px;
+  border: 3px solid #73AD21;
+}
+div.absolute3 {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 200px;
+  height: 100px;
+  border: 3px solid #73AD21;
+}
+div.absolute4 {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 200px;
+  height: 100px;
+  border: 3px solid #73AD21;
+}
+</style>
+</head>
+<body>
+
+<h2>position: absolute;</h2>
+
+<p>An element with position: absolute; is positioned relative to the nearest positioned ancestor (instead of positioned relative to the viewport, like fixed):</p>
+
+<div class="relative">This div element has position: relative;
+  <div id="animator" class="absolute4">This div element has position: absolute;</div>
+  
+</div>
+<script>
+function animateThis(elmSelector="", currentI=0, speed=1000, reverse=false, maxCounter=4){
+  let counter = 0;
+  let timeout = null;
+  const animateClasses = ['absolute1', 'absolute2', 'absolute3', 'absolute4'];
+  
+  if (elmSelector && $(elmSelector).length && (currentI >= 0) && (currentI < animateClasses.length) ){     
+     if (reverse){
+        animateClasses.reverse();
+     }
+     const mover = function(){
+       counter += 1;
+       
+       if (counter > maxCounter){
+         
+         return false;
+       }
+       console.log(counter);
+       if (currentI >=0 && (currentI < animateClasses.length) && animateClasses[currentI] && $(elmSelector).length){
+         $(elmSelector).removeClass(animateClasses)
+         $(elmSelector).addClass(animateClasses[currentI]);
+         //math ai part try currentI = (currentI === 3) ? (currentI-1) :(currentI+1);
+         currentI = (currentI === 3) ? 0 :(currentI+1);
+         
+       } else {
+         console.log("hi");
+       }
+       if (timeout){
+         clearTimeout(timeout);
+       }
+       timeout = setTimeout(mover, speed);
+     };
+     mover();
+     console.log("what noob");
+     
+     
+  } else {
+    console.warn(`invalid currentI`);
+    return false;
+  }
+}
+
+animateThis(elmSelector="#animator", currentI=0, speed=50, reverse=false, maxCounter=1);
+</script>
+
+</body>
+</html>
+
+
